@@ -3,8 +3,8 @@
   "issueNumber": 1,
   "workspaceKey": "GH-1",
   "spentRepairs": 0,
-  "spentWaitSeconds": 0,
+  "spentWaitSeconds": 198,
   "deadlineTimestampMs": 1791205344449,
   "isPaused": false,
-  "lastUpdated": "2026-10-05T12:57:24.449Z"
+  "lastUpdated": "2026-10-05T13:00:42.762Z"
 }
