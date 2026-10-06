@@ -1,10 +1,10 @@
 {
   "repo": "felixjichao/symphony-delivery-dogfood",
-  "issueNumber": 11,
-  "workspaceKey": "GH-11",
-  "spentRepairs": 0,
-  "spentWaitSeconds": 0,
-  "deadlineTimestampMs": 1791256370718,
+  "issueNumber": 13,
+  "workspaceKey": "GH-13",
+  "spentRepairs": 1,
+  "spentWaitSeconds": 31,
+  "deadlineTimestampMs": 1791256960563,
   "isPaused": false,
-  "lastUpdated": "2026-10-06T02:57:50.719Z"
+  "lastUpdated": "2026-10-06T03:08:12.515Z"
 }
