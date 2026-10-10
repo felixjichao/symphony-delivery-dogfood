@@ -9,6 +9,20 @@ test("sortedCopy_nest103_20261010 sorts numbers including negatives and duplicat
   assert.deepEqual(sortedCopy_nest103_20261010([-2, 0, 4]), [-2, 0, 4]);
 });
 
+for (const [name, values] of [
+  ["unsorted", [10, -3, 2, -3, 0, 2]],
+  ["empty", []],
+  ["already-sorted", [-2, 0, 4]],
+]) {
+  test(`sortedCopy_nest103_20261010 preserves ${name} input and returns a distinct array`, () => {
+    const original = [...values];
+    const result = sortedCopy_nest103_20261010(values);
+
+    assert.deepEqual(values, original);
+    assert.notStrictEqual(result, values);
+  });
+}
+
 test("add adds two numbers", () => {
   assert.equal(add(2, 3), 5);
 });
