@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { add, sortedCopy_nest103_20261010, subtract_a8265c25fa, subtract_810a38ecc6, multiply_d36385fa30 } from "../src/math.mjs";
+import { add, nest104Double, sortedCopy_nest103_20261010, subtract_a8265c25fa, subtract_810a38ecc6, multiply_d36385fa30 } from "../src/math.mjs";
+
+test("nest104Double doubles positive, negative, and zero inputs", () => {
+  assert.equal(nest104Double(3), 6);
+  assert.equal(nest104Double(-2), -4);
+  assert.equal(nest104Double(0), 0);
+});
 
 test("sortedCopy_nest103_20261010 sorts numbers including negatives and duplicates", () => {
   assert.deepEqual(sortedCopy_nest103_20261010([10, -3, 2, -3, 0, 2]), [-3, -3, 0, 2, 2, 10]);

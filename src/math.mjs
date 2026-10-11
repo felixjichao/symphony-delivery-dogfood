@@ -1,4 +1,8 @@
 // Synthetic module for the delivery dogfood.
+export function nest104Double(value) {
+  return value * 2;
+}
+
 export function add(a, b) {
   return a + b;
 }
