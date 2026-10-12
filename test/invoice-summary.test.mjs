@@ -73,6 +73,27 @@ test("CLI reads an invoice file and writes a CSV file", async () => {
   }
 });
 
+test("CLI rejects malformed JSON without creating or modifying output", async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "invoice-summary-"));
+  const inputPath = path.join(directory, "input.json");
+  const missingOutputPath = path.join(directory, "missing.csv");
+  const existingOutputPath = path.join(directory, "existing.csv");
+  try {
+    await writeFile(inputPath, "{ malformed JSON");
+    await writeFile(existingOutputPath, "keep this sentinel\n");
+
+    const missingResult = spawnSync(process.execPath, [cliPath, inputPath, missingOutputPath], { encoding: "utf8" });
+    assert.notEqual(missingResult.status, 0);
+    await assert.rejects(readFile(missingOutputPath));
+
+    const existingResult = spawnSync(process.execPath, [cliPath, inputPath, existingOutputPath], { encoding: "utf8" });
+    assert.notEqual(existingResult.status, 0);
+    assert.equal(await readFile(existingOutputPath, "utf8"), "keep this sentinel\n");
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
 for (const invalidItem of [
   { description: "negative quantity", quantity: -1, unitPrice: 2 },
   { description: "negative price", quantity: 1, unitPrice: -2 },
