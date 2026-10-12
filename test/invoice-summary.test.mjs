@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -68,6 +68,22 @@ test("CLI reads an invoice file and writes a CSV file", async () => {
       await readFile(outputPath, "utf8"),
       "invoice_id,customer_name,issued_at,currency,line_item_count,total_amount\nINV-120,\"Acme, Inc.\",2026-10-12,USD,2,11\n",
     );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("CLI exits non-zero when the output path is a directory", async () => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "invoice-summary-"));
+  const inputPath = path.join(directory, "input.json");
+  const outputPath = path.join(directory, "summary.csv");
+  try {
+    await writeFile(inputPath, JSON.stringify(invoice()));
+    await mkdir(outputPath);
+
+    const result = spawnSync(process.execPath, [cliPath, inputPath, outputPath], { encoding: "utf8" });
+    assert.notEqual(result.status, 0);
+    assert.deepEqual(await readdir(outputPath), []);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
