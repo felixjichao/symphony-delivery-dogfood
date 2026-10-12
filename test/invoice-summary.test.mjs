@@ -48,6 +48,14 @@ test("accepts an invoice with no items and reports a zero total", () => {
   assert.equal(buildInvoiceSummary(invoice({ items: [] })).lineItemCount, 0);
 });
 
+test("accepts zero quantity and unit price values", () => {
+  const summary = buildInvoiceSummary(invoice({
+    items: [{ description: "free item", quantity: 0, unitPrice: 0 }],
+  }));
+  assert.equal(summary.totalAmount, 0);
+  assert.equal(summary.lineItemCount, 1);
+});
+
 test("CLI reads an invoice file and writes a CSV file", async () => {
   const directory = await mkdtemp(path.join(os.tmpdir(), "invoice-summary-"));
   const inputPath = path.join(directory, "input.json");
