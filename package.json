@@ -9,6 +9,7 @@
     "lint": "node scripts/lint.mjs",
     "gate": "npm test",
     "ci": "npm test && npm run lint",
-    "ci:fix": "node scripts/ci-fix.mjs"
+    "ci:fix": "node scripts/ci-fix.mjs",
+    "invoice-summary": "node src/invoice-summary.mjs"
   }
 }
